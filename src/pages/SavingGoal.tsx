@@ -3,6 +3,7 @@ import { ReactComponent as BuyAHouseIcon } from '../assets/icons/buy-a-house.svg
 import style from './SavingGoal.module.css';
 import { InputField } from '../components/input/inputField/InputField';
 import { InputMoney } from '../components/input/inputMoney/InputMoney';
+import { InputDate } from '../components/input/inputDate/InputDate';
 
 export function SavingGoal(): JSX.Element {
   return (
@@ -27,6 +28,9 @@ export function SavingGoal(): JSX.Element {
           <div className={style.fieldsSideBySide}>
             <InputField htmlFor="amount" label="Total amount">
               <InputMoney id="amount" />
+            </InputField>
+            <InputField htmlFor="reachDate" label="Monthly amount">
+              <InputDate id="reachDate" />
             </InputField>
           </div>
           <div className={style.amountBox}>
