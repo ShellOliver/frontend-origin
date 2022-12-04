@@ -27,7 +27,12 @@ export const InputDate = ({ id }: Props): JSX.Element => {
   const ref = useRef<HTMLInputElement>(null);
   const [selectedMonth, selectedYear] = getMonthYear(date);
 
+  const prevIsDisabled =
+    date.getMonth() === currentDate.getMonth() &&
+    date.getFullYear() === currentDate.getFullYear();
+
   const previous = () => {
+    if (prevIsDisabled) return;
     const newDate = new Date(date);
     newDate.setMonth(newDate.getMonth() - 1);
     setDate(newDate);
@@ -46,10 +51,6 @@ export const InputDate = ({ id }: Props): JSX.Element => {
     }
     if (['ArrowDown', 'ArrowLeft'].includes(event.key)) previous();
   };
-
-  const prevIsDisabled =
-    date.getMonth() === currentDate.getMonth() &&
-    date.getFullYear() === currentDate.getFullYear();
 
   return (
     <div className={style.wrapper}>
@@ -73,6 +74,7 @@ export const InputDate = ({ id }: Props): JSX.Element => {
       <input /* makes input date behave as spinbutton for a11y purpose */
         ref={ref}
         role="spinbutton"
+        data-testid="input-date"
         aria-valuetext={`${selectedMonth} - ${selectedYear}`}
         aria-valuenow={date.getMonth()}
         type="month"
