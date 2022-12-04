@@ -4,14 +4,17 @@ import React from 'react';
 type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> & {
   onChange: (value: string) => void;
 };
-export const getNumber = (value?: string): string =>
-  value?.replace(/\D/g, '') || '';
+
+export const rawNumber = (value?: string): number =>
+  Number(value?.replace(',', ''));
 
 export const numberFormat = (val: number): string => {
   return new Intl.NumberFormat('en-US', {
     minimumFractionDigits: Number.isInteger(val) ? 0 : 2,
   }).format(val);
 };
+
+const getNumber = (value?: string): string => value?.replace(/\D/g, '') || '';
 
 const moneyMask = (e: React.FormEvent<HTMLInputElement>) => {
   if (!e.currentTarget.value.length) return;
@@ -24,9 +27,7 @@ const moneyMask = (e: React.FormEvent<HTMLInputElement>) => {
 };
 
 const cleanUpDecimals = (e: React.FocusEvent<HTMLInputElement>) => {
-  e.target.value = numberFormat(
-    Number(e.currentTarget.value?.replace(',', ''))
-  );
+  e.target.value = numberFormat(rawNumber(e.currentTarget.value));
 };
 
 export const InputMoney = (props: Props): JSX.Element => {

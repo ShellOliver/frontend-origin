@@ -3,7 +3,7 @@ import { ReactComponent as BuyAHouseIcon } from '../assets/icons/buy-a-house.svg
 import style from './SavingGoal.module.css';
 import { InputField } from '../components/input/inputField/InputField';
 import {
-  getNumber,
+  rawNumber,
   InputMoney,
   numberFormat,
 } from '../components/input/inputMoney/InputMoney';
@@ -22,7 +22,7 @@ export function SavingGoal(): JSX.Element {
 
   const totalOutput = useMemo(() => {
     const monthlyDeposits = getDateDiff(goalDate);
-    const totalAmount = parseFloat(getNumber(money)) || 0;
+    const totalAmount = rawNumber(money) || 0;
     const monthlyAmount = totalAmount
       ? Number((totalAmount / monthlyDeposits).toFixed(2))
       : 0;
@@ -66,12 +66,18 @@ export function SavingGoal(): JSX.Element {
           </div>
           <div className={style.amountBox}>
             <div className={style.monthlyAmount}>
-              <label htmlFor="monthly-amount">Monthly amount</label>
-              <span id="monthly-amount">
-                $ {numberFormat(totalOutput.totalAmount)}
+              <span className={style.monthlyAmountLabel}>Monthly amount</span>
+              <span
+                className={style.monthlyAmountValue}
+                data-testid="monthly-amount-value"
+              >
+                ${numberFormat(totalOutput.totalAmount)}
               </span>
             </div>
-            <div className={style.monthlyAmountAlert}>
+            <div
+              data-testid="message-output"
+              className={style.monthlyAmountAlert}
+            >
               You’re planning{' '}
               <b>{totalOutput.monthlyDeposits} monthly deposits</b> to reach
               your <b>${numberFormat(totalOutput.totalAmount)}</b> goal by{' '}
