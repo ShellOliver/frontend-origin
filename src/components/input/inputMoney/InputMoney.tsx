@@ -6,7 +6,7 @@ type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> & {
 };
 
 export const rawNumber = (value?: string): number =>
-  Number(value?.replace(',', ''));
+  Number(value?.replaceAll(',', ''));
 
 export const numberFormat = (val: number): string => {
   return new Intl.NumberFormat('en-US', {

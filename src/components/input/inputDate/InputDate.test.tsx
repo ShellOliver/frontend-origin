@@ -3,9 +3,6 @@ import userEvent from '@testing-library/user-event';
 import { useState } from 'react';
 import { InputDate } from './InputDate';
 
-// Date.now = jest.fn(() => new Date(Date.UTC(2022, 1, 10)).valueOf());
-// assuming the current date is 10th of January 2022
-
 const currentMonth = 'November';
 const currentYear = '2022';
 
