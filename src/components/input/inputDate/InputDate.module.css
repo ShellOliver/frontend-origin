@@ -1,0 +1,58 @@
+.wrapper {
+  position: relative;
+}
+
+.inputDate {
+  display: flex;
+  position: absolute;
+  justify-content: space-between;
+  padding: 4px 20px;
+  width: 192px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  z-index: 1;
+}
+
+.nativeInputDate {
+  position: relative;
+  width: 192px;
+  height: 56px;
+  box-sizing: border-box;
+  border: 1px solid #E9EEF2;
+}
+
+.nativeInputDate::-webkit-datetime-edit, .nativeInputDate::-webkit-inner-spin-button, .nativeInputDate::-webkit-clear-button {
+    display: none;
+}
+
+.inputDate > button {
+  border: none;
+  background-color: transparent;
+  padding: 8px 16px;
+  border-radius: 4px;
+  padding: 0;
+}
+
+.inputDate > button[disabled] {
+  opacity: 0.5;
+}
+
+.rotateToRight {
+  transform: rotate(180deg);
+}
+
+.date {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+}
+
+.month {
+  font-weight: 600;
+}
+
+.year {
+  color: #708797;
+
+}

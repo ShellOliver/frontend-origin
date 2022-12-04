@@ -1,16 +1,31 @@
-import { useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
+import { ReactComponent as ArrowIcon } from '../../../assets/icons/arrow-left.svg';
+import style from './InputDate.module.css';
 
 type Props = {
   id?: string;
 };
 
-// a11y rules https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/
+const addZeroBeforeNumber = (val: number) => {
+  return val.toLocaleString('en-US', {
+    minimumIntegerDigits: 2,
+    useGrouping: false,
+  });
+};
+
+const getMonthYear = (date: Date): [string, number] => {
+  const month = date.toLocaleString('default', { month: 'long' });
+  const year = date.getFullYear();
+  return [month, year];
+};
+
+// a11y pattern https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/
 
 export const InputDate = ({ id }: Props): JSX.Element => {
-  const currentDate = new Date();
+  const currentDate = useMemo(() => new Date(), []);
   const [date, setDate] = useState(currentDate);
-  const selectedMonth = date.toLocaleString('default', { month: 'long' });
-  const selectedYear = date.getFullYear();
+  const ref = useRef<HTMLInputElement>(null);
+  const [selectedMonth, selectedYear] = getMonthYear(date);
 
   const previous = () => {
     const newDate = new Date(date);
@@ -24,31 +39,49 @@ export const InputDate = ({ id }: Props): JSX.Element => {
     setDate(newDate);
   };
 
+  const handleKeypress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (['ArrowUp', 'ArrowRight'].includes(event.key)) {
+      next();
+      return;
+    }
+    if (['ArrowDown', 'ArrowLeft'].includes(event.key)) previous();
+  };
+
+  const prevIsDisabled =
+    date.getMonth() === currentDate.getMonth() &&
+    date.getFullYear() === currentDate.getFullYear();
+
   return (
-    <div>
-      <button aria-label="previous month" onClick={previous}>
-        previous
-      </button>
-      <div
+    <div className={style.wrapper}>
+      <div className={style.inputDate} onClick={() => ref.current?.focus()}>
+        <button
+          tabIndex={-1}
+          aria-label="previous month"
+          onClick={previous}
+          disabled={prevIsDisabled}
+        >
+          <ArrowIcon />
+        </button>
+        <div className={style.date}>
+          <span className={style.month}>{selectedMonth}</span>
+          <span className={style.year}>{selectedYear}</span>
+        </div>
+        <button tabIndex={-1} onClick={next} aria-label="next month">
+          <ArrowIcon className={style.rotateToRight} />
+        </button>
+      </div>
+      <input /* makes input date behave as spinbutton for a11y purpose */
+        ref={ref}
         role="spinbutton"
-        tabIndex={0}
         aria-valuetext={`${selectedMonth} - ${selectedYear}`}
         aria-valuenow={date.getMonth()}
+        type="month"
+        readOnly
+        className={style.nativeInputDate}
+        onKeyDown={handleKeypress}
+        value={`${selectedYear}-${addZeroBeforeNumber(date.getMonth() + 1)}`}
         id={id}
-        onKeyDown={(event) => {
-          if (['ArrowUp', 'ArrowRight'].includes(event.key)) {
-            next();
-            return;
-          }
-          if (['ArrowDown', 'ArrowLeft'].includes(event.key)) previous();
-        }}
-      >
-        <span>{selectedMonth}</span>
-        <span>{selectedYear}</span>
-      </div>
-      <button onClick={next} aria-label="next month">
-        next
-      </button>
+      />
     </div>
   );
 };
