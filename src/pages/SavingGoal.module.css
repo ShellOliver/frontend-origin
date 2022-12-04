@@ -1,0 +1,126 @@
+.nav {
+  display: flex;
+  align-items: center;
+  padding: 24px 56px;
+  background: #fff;
+}
+
+.rootLink {
+  height: 32px;
+}
+
+.container {
+  background-color: #F4F8FA;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: calc(100vh - 80px); /* 80px is the height of nav */
+}
+
+.title {
+  color: #1B31A8;
+  font-family: 'Work Sans';
+  font-size: 1.125rem;
+  font-weight: 400;
+  margin-bottom: 24px;
+  margin-top: 48px;
+}
+
+.title > b {
+  font-weight: 600;
+}
+
+.card {
+  width: 560px;
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 40px;
+  box-shadow: 0px 16px 32px rgba(30, 42, 50, 0.08);
+  box-sizing: border-box;
+}
+
+.groupTitle {
+  display: flex;
+  gap: 16px;
+}
+
+.cardTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cardTitle > h2 {
+  font-weight: 500;
+  font-size: 1.5rem;
+  font-family: 'Rubik';
+  color: #1E2A32;
+  margin: 0;
+}
+
+.cardTitle > span {
+  font-weight: 500;
+  font-size: 1.125rem;
+  font-family: 'Work Sans';
+  color: #708797;
+}
+
+.fieldsSideBySide {
+  display: flex;
+  gap: 16px;
+  margin-top: 28px;
+  margin-bottom: 24px;
+}
+
+.amountBox {
+  border: 1px solid #E9EEF2;
+  border-radius: 8px;
+}
+
+.monthlyAmount {
+  display: flex;
+  justify-content: space-between;
+  margin: 24px 32px 16px 32px;
+}
+
+.monthlyAmount label {
+  font-size: 1.25rem;
+  color: #1E2A32;
+}
+
+.monthlyAmount span {
+  font-size: 2rem;
+  font-family: 'Rubik';
+  color: #0079FF;
+}
+
+.monthlyAmountAlert {
+  padding: 24px 32px;
+  font-size: 0.75rem;
+  color: #1C1E1F;
+  background-color: #F4F8FA;
+}
+
+.confirm {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.primaryButton {
+  background: #1B31A8;
+  border-radius: 32px;
+  color: #fff;
+  font-family: 'Work Sans';
+  border: none;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  width: 320px;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
