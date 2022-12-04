@@ -1,0 +1,13 @@
+.input {
+  border: 1px solid #E9EEF2;
+  border-radius: 4px;
+  font-family: 'Rubik';
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: #4D6475;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 16px;
+  padding-left: 44px;
+  background: url('../../../assets/icons/dollar.svg') no-repeat left 12px center;
+}

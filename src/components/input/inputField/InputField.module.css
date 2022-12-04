@@ -1,0 +1,11 @@
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.field label {
+  font-size: 0.875rem;
+  color: #1E2A32;
+  line-height: 150%;
+  margin-bottom: 4px;
+}
