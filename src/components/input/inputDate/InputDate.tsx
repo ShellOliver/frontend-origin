@@ -1,9 +1,11 @@
-import { useMemo, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { ReactComponent as ArrowIcon } from '../../../assets/icons/arrow-left.svg';
 import style from './InputDate.module.css';
 
 type Props = {
   id?: string;
+  onChange: (date: Date) => void;
+  value?: Date;
 };
 
 const addZeroBeforeNumber = (val: number) => {
@@ -21,27 +23,30 @@ const getMonthYear = (date: Date): [string, number] => {
 
 // a11y pattern https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/
 
-export const InputDate = ({ id }: Props): JSX.Element => {
-  const currentDate = useMemo(() => new Date(), []);
-  const [date, setDate] = useState(currentDate);
+export const InputDate = ({
+  id,
+  value = new Date(),
+  onChange,
+}: Props): JSX.Element => {
+  const currentDate = new Date();
   const ref = useRef<HTMLInputElement>(null);
-  const [selectedMonth, selectedYear] = getMonthYear(date);
+  const [selectedMonth, selectedYear] = getMonthYear(value);
 
   const prevIsDisabled =
-    date.getMonth() === currentDate.getMonth() &&
-    date.getFullYear() === currentDate.getFullYear();
+    value.getMonth() === currentDate.getMonth() &&
+    value.getFullYear() === currentDate.getFullYear();
 
   const previous = () => {
     if (prevIsDisabled) return;
-    const newDate = new Date(date);
+    const newDate = new Date(value);
     newDate.setMonth(newDate.getMonth() - 1);
-    setDate(newDate);
+    onChange(newDate);
   };
 
   const next = () => {
-    const newDate = new Date(date);
+    const newDate = new Date(value);
     newDate.setMonth(newDate.getMonth() + 1);
-    setDate(newDate);
+    onChange(newDate);
   };
 
   const handleKeypress = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -54,7 +59,12 @@ export const InputDate = ({ id }: Props): JSX.Element => {
 
   return (
     <div className={style.wrapper}>
-      <div className={style.inputDate} onClick={() => ref.current?.focus()}>
+      <div
+        className={style.inputDate}
+        onClick={(e) => {
+          ref.current?.focus();
+        }}
+      >
         <button
           tabIndex={-1}
           aria-label="previous month"
@@ -76,12 +86,12 @@ export const InputDate = ({ id }: Props): JSX.Element => {
         role="spinbutton"
         data-testid="input-date"
         aria-valuetext={`${selectedMonth} - ${selectedYear}`}
-        aria-valuenow={date.getMonth()}
+        aria-valuenow={value.getMonth()}
         type="month"
         readOnly
         className={style.nativeInputDate}
         onKeyDown={handleKeypress}
-        value={`${selectedYear}-${addZeroBeforeNumber(date.getMonth() + 1)}`}
+        value={`${selectedYear}-${addZeroBeforeNumber(value.getMonth() + 1)}`}
         id={id}
       />
     </div>

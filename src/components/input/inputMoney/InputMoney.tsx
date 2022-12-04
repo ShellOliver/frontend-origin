@@ -1,8 +1,17 @@
 import style from './InputMoney.module.css';
 import React from 'react';
 
-type Props = React.InputHTMLAttributes<HTMLInputElement>;
-const getNumber = (value?: string) => value?.replace(/\D/g, '') || '';
+type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> & {
+  onChange: (value: string) => void;
+};
+export const getNumber = (value?: string): string =>
+  value?.replace(/\D/g, '') || '';
+
+export const numberFormat = (val: number): string => {
+  return new Intl.NumberFormat('en-US', {
+    minimumFractionDigits: Number.isInteger(val) ? 0 : 2,
+  }).format(val);
+};
 
 const moneyMask = (e: React.FormEvent<HTMLInputElement>) => {
   if (!e.currentTarget.value.length) return;
@@ -15,14 +24,9 @@ const moneyMask = (e: React.FormEvent<HTMLInputElement>) => {
 };
 
 const cleanUpDecimals = (e: React.FocusEvent<HTMLInputElement>) => {
-  const endDot = /\.$/.exec(e.target.value)?.[0];
-  if (endDot) {
-    e.target.value = e.target.value.slice(0, -1);
-    return;
-  }
-
-  const singleDecimal = /\.\d+$/.exec(e.target.value)?.[0].length === 2;
-  if (singleDecimal) e.target.value += '0';
+  e.target.value = numberFormat(
+    Number(e.currentTarget.value?.replace(',', ''))
+  );
 };
 
 export const InputMoney = (props: Props): JSX.Element => {
@@ -31,6 +35,9 @@ export const InputMoney = (props: Props): JSX.Element => {
       className={style.input}
       {...props}
       onInput={moneyMask}
+      onChange={(e) => {
+        props.onChange(e.target.value);
+      }}
       onBlur={cleanUpDecimals}
     />
   );

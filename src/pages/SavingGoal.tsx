@@ -2,10 +2,37 @@ import { ReactComponent as OriginIcon } from '../assets/icons/origin.svg';
 import { ReactComponent as BuyAHouseIcon } from '../assets/icons/buy-a-house.svg';
 import style from './SavingGoal.module.css';
 import { InputField } from '../components/input/inputField/InputField';
-import { InputMoney } from '../components/input/inputMoney/InputMoney';
+import {
+  getNumber,
+  InputMoney,
+  numberFormat,
+} from '../components/input/inputMoney/InputMoney';
 import { InputDate } from '../components/input/inputDate/InputDate';
+import { useMemo, useState } from 'react';
+import dayjs from 'dayjs';
+
+const getDateDiff = (goalDate: Date) => {
+  const current = dayjs().set('date', 1);
+  return dayjs(goalDate).set('date', 2).diff(current, 'month');
+};
 
 export function SavingGoal(): JSX.Element {
+  const [goalDate, setReachGoal] = useState<Date>(new Date());
+  const [money, setMoney] = useState<string>();
+
+  const totalOutput = useMemo(() => {
+    const monthlyDeposits = getDateDiff(goalDate);
+    const totalAmount = parseFloat(getNumber(money)) || 0;
+    const monthlyAmount = totalAmount
+      ? Number((totalAmount / monthlyDeposits).toFixed(2))
+      : 0;
+
+    return {
+      totalAmount: monthlyDeposits === 0 ? totalAmount : monthlyAmount,
+      monthlyDeposits,
+    };
+  }, [goalDate, money]);
+
   return (
     <div>
       <nav className={style.nav}>
@@ -27,20 +54,28 @@ export function SavingGoal(): JSX.Element {
           </div>
           <div className={style.fieldsSideBySide}>
             <InputField htmlFor="amount" label="Total amount">
-              <InputMoney id="amount" />
+              <InputMoney id="amount" onChange={setMoney} />
             </InputField>
-            <InputField htmlFor="reachDate" label="Monthly amount">
-              <InputDate id="reachDate" />
+            <InputField htmlFor="reachDate" label="Reach goal by">
+              <InputDate
+                id="reachDate"
+                onChange={setReachGoal}
+                value={goalDate}
+              />
             </InputField>
           </div>
           <div className={style.amountBox}>
             <div className={style.monthlyAmount}>
               <label htmlFor="monthly-amount">Monthly amount</label>
-              <span id="monthly-amount">$ 1,000</span>
+              <span id="monthly-amount">
+                $ {numberFormat(totalOutput.totalAmount)}
+              </span>
             </div>
             <div className={style.monthlyAmountAlert}>
-              You’re planning <b>48 monthly deposits</b> to reach your{' '}
-              <b>$25,000</b> goal by <b>October 2020</b>.
+              You’re planning{' '}
+              <b>{totalOutput.monthlyDeposits} monthly deposits</b> to reach
+              your <b>${numberFormat(totalOutput.totalAmount)}</b> goal by{' '}
+              <b>{dayjs(goalDate).format('MMMM YYYY').toString()}</b>.
             </div>
           </div>
           <div className={style.confirm}>

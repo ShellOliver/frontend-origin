@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { useState } from 'react';
 import { InputDate } from './InputDate';
 
 // Date.now = jest.fn(() => new Date(Date.UTC(2022, 1, 10)).valueOf());
@@ -10,15 +11,20 @@ const currentYear = '2022';
 
 jest.useFakeTimers('modern').setSystemTime(new Date('2022-11-05'));
 
+const InputDateWithState = () => {
+  const [value, setValue] = useState(new Date());
+  return <InputDate onChange={setValue} value={value} />;
+};
+
 describe('InputDate', () => {
   it('should find the current year and month when render', () => {
-    render(<InputDate />);
+    render(<InputDateWithState />);
     expect(screen.getByText(currentMonth)).toBeInTheDocument();
     expect(screen.getByText(currentYear)).toBeInTheDocument();
   });
 
   it('should still see current month and year when try to select a previous date', () => {
-    render(<InputDate />);
+    render(<InputDateWithState />);
 
     fireEvent.keyDown(screen.getByTestId('input-date'), {
       key: 'ArrowLeft',
@@ -31,7 +37,7 @@ describe('InputDate', () => {
   });
 
   it('should alternate between next and previous date when click the next and previous button', () => {
-    render(<InputDate />);
+    render(<InputDateWithState />);
 
     userEvent.click(screen.getByLabelText('next month'));
     userEvent.click(screen.getByLabelText('next month'));
@@ -45,7 +51,7 @@ describe('InputDate', () => {
   });
 
   it('should alternate between next and previous date when click left and right keys', () => {
-    render(<InputDate />);
+    render(<InputDateWithState />);
 
     fireEvent.keyDown(screen.getByTestId('input-date'), { key: 'ArrowRight' });
     fireEvent.keyDown(screen.getByTestId('input-date'), { key: 'ArrowRight' });
