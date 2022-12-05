@@ -1,10 +1,10 @@
 .input {
-  border: 1px solid #E9EEF2;
+  border: 1px solid var(--color-blueGray50);;
   border-radius: 4px;
   font-family: 'Rubik';
   font-weight: 500;
   font-size: 1.5rem;
-  color: #4D6475;
+  color: var(--color-blueGray600);
   width: 100%;
   box-sizing: border-box;
   padding: 13px;

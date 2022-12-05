@@ -1,6 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Work+Sans:regular,bold,italic');
 @import url('https://fonts.googleapis.com/css?family=Rubik:regular,bold,italic');
 
+:root {
+  --color-blueGray10: #F4F8FA;
+  --color-blueGray50: #E9EEF2;
+  --color-blueGray400: #708797;
+  --color-blueGray900: #1E2A32;
+  --color-blueGray600: #4D6475;
+  --color-blueGray1000: #1C1E1F;
+  --color-brandPrimary: #1B31A8;
+  --color-brandSecondary: #0079FF;
+  
+}
+
 * {
   font-family: 'Work Sans';
 }

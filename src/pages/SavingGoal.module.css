@@ -10,7 +10,7 @@
 }
 
 .container {
-  background-color: #F4F8FA;
+  background-color: var(--color-blueGray10);
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -18,7 +18,7 @@
 }
 
 .title {
-  color: #1B31A8;
+  color: var(--color-brandPrimary);
   font-family: 'Work Sans';
   font-size: 1.25rem;
   font-weight: 400;
@@ -67,7 +67,7 @@
   font-weight: 500;
   font-size: 1.5rem;
   font-family: 'Rubik';
-  color: #1E2A32;
+  color: var(--color-blueGray900);
   margin: 0;
 }
 
@@ -75,7 +75,7 @@
   font-weight: 500;
   font-size: 1rem;
   font-family: 'Work Sans';
-  color: #708797;
+  color: var(--color-blueGray400);
 }
 
 .groupFields {
@@ -92,7 +92,7 @@
 }
 
 .amountBox {
-  border: 1px solid #E9EEF2;
+  border: 1px solid var(--color-blueGray50);;
   border-radius: 8px;
 }
 
@@ -104,21 +104,22 @@
 
 .monthlyAmountLabel {
   font-size: 1.25rem;
-  color: #1E2A32;
+  color: var(--color-blueGray900);
   margin: auto 0;
 }
 
 .monthlyAmountValue {
   font-size: 2rem;
   font-family: 'Rubik';
-  color: #0079FF;
+  color: var(--color-brandSecondary);
 }
 
 .monthlyAmountAlert {
   padding: 24px 32px;
   font-size: 12px; /* for all screens */
-  color: #1C1E1F;
-  background-color: #F4F8FA;
+  color: var(--color-blueGray1000);
+  background-color: var(--color-blueGray10);
+  line-height: 16px;
 }
 
 .confirm {
@@ -128,7 +129,7 @@
 }
 
 .primaryButton {
-  background: #1B31A8;
+  background: var(--color-brandPrimary);
   border-radius: 32px;
   color: #fff;
   font-family: 'Work Sans';

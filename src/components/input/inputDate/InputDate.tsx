@@ -62,7 +62,7 @@ export const InputDate = ({
       <div
         className={style.inputDate}
         onClick={() => {
-          if (!prevIsDisabled) ref.current?.focus();
+          ref.current?.focus();
         }}
       >
         <button
