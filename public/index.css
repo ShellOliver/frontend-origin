@@ -4,3 +4,15 @@
 * {
   font-family: 'Work Sans';
 }
+
+html {
+  font-size: 16px;
+}
+
+@media (max-width: 560px) {
+  html { font-size: 15px; }
+}
+
+@media (max-width: 360px) {
+  html { font-size: 14px; }
+}

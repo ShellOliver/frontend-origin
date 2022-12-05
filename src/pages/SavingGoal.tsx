@@ -41,9 +41,9 @@ export function SavingGoal(): JSX.Element {
         </a>
       </nav>
       <div className={style.container}>
-        <span className={style.title}>
+        <h1 className={style.title}>
           Let`s plan your <b>saving goal.</b>
-        </span>
+        </h1>
         <div className={style.card}>
           <div className={style.groupTitle}>
             <BuyAHouseIcon />
@@ -52,7 +52,7 @@ export function SavingGoal(): JSX.Element {
               <span>Saving goal</span>
             </div>
           </div>
-          <div className={style.fieldsSideBySide}>
+          <div className={style.groupFields}>
             <InputField htmlFor="amount" label="Total amount">
               <InputMoney id="amount" onChange={setMoney} />
             </InputField>

@@ -21,6 +21,12 @@
   border: 1px solid #E9EEF2;
 }
 
+@media (max-width: 480px) {
+  .inputDate, .nativeInputDate {
+    width: 100%;
+  }
+}
+
 .nativeInputDate::-webkit-datetime-edit, .nativeInputDate::-webkit-inner-spin-button, .nativeInputDate::-webkit-clear-button {
     display: none;
 }
