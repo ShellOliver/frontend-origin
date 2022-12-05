@@ -68,7 +68,10 @@ export const InputDate = ({
         <button
           tabIndex={-1}
           aria-label="previous month"
-          onClick={previous}
+          onClick={(e) => {
+            e.stopPropagation();
+            previous();
+          }}
           disabled={prevIsDisabled}
         >
           <ArrowIcon />
@@ -77,7 +80,14 @@ export const InputDate = ({
           <span className={style.month}>{selectedMonth}</span>
           <span className={style.year}>{selectedYear}</span>
         </div>
-        <button tabIndex={-1} onClick={next} aria-label="next month">
+        <button
+          tabIndex={-1}
+          onClick={(e) => {
+            e.stopPropagation();
+            next();
+          }}
+          aria-label="next month"
+        >
           <ArrowIcon className={style.rotateToRight} />
         </button>
       </div>
