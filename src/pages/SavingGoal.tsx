@@ -21,7 +21,7 @@ export function SavingGoal(): JSX.Element {
   const [money, setMoney] = useState<string>();
 
   const totalOutput = useMemo(() => {
-    const monthlyDeposits = getDateDiff(goalDate);
+    const monthlyDeposits = getDateDiff(goalDate) + 1;
     const totalAmount = rawNumber(money) || 0;
     const monthlyAmount = totalAmount
       ? Number((totalAmount / monthlyDeposits).toFixed(2))

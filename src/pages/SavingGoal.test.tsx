@@ -11,7 +11,7 @@ describe('SavingGoal', () => {
       '$1,000'
     );
     expect(screen.getByTestId('message-output')).toHaveTextContent(
-      'You’re planning 0 monthly deposits to reach your $1,000 goal by December 2022.'
+      'You’re planning 1 monthly deposits to reach your $1,000 goal by December 2022.'
     );
   });
 
@@ -23,10 +23,10 @@ describe('SavingGoal', () => {
     fireEvent.keyDown(reachGoal, { key: 'ArrowRight' });
     fireEvent.keyDown(reachGoal, { key: 'ArrowRight' });
     expect(screen.getByTestId('monthly-amount-value')).toHaveTextContent(
-      '$500'
+      '$333.33'
     );
     expect(screen.getByTestId('message-output')).toHaveTextContent(
-      'You’re planning 2 monthly deposits to reach your $500 goal by February 2023.'
+      'You’re planning 3 monthly deposits to reach your $333.33 goal by February 2023.'
     );
   });
 
@@ -39,10 +39,10 @@ describe('SavingGoal', () => {
     fireEvent.keyDown(reachGoal, { key: 'ArrowRight' });
     fireEvent.keyDown(reachGoal, { key: 'ArrowRight' });
     expect(screen.getByTestId('monthly-amount-value')).toHaveTextContent(
-      '$333.52'
+      '$250.14'
     );
     expect(screen.getByTestId('message-output')).toHaveTextContent(
-      'You’re planning 3 monthly deposits to reach your $333.52 goal by March 2023.'
+      'You’re planning 4 monthly deposits to reach your $250.14 goal by March 2023.'
     );
   });
 });
